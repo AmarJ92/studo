@@ -14,9 +14,7 @@ public class StudentController {
 
     @PostMapping("/addStudents")
     @ResponseBody
-    public String createStudent(@RequestParam String surname,
-                                @RequestParam String lastname,
-                                @RequestParam int matNumber){
+    public String createStudent(@RequestBody StudentDto studentDto){
         return "Hello from studo app";
     }
 }
