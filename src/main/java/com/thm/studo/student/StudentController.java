@@ -15,10 +15,31 @@ public class StudentController {
         this.studentMapper = studentMapper;
     }
 
+    @GetMapping
+    public StudentDto getStudent(int studentId){
+        Student student = studentService.findStudentById(studentId);
+        StudentDto studentDto = studentMapper.convertToDto(student);
+        return studentDto;
+    }
+
     @PostMapping("/addStudents")
     @ResponseBody
     public void createStudent(@RequestBody StudentDto studentDto){
         Student student = studentMapper.convertToEntity(studentDto);
         studentService.createStudent(student);
+    }
+
+    @PutMapping("/updateStudent")
+    @ResponseBody
+    public void updateStudent(@RequestBody StudentDto studentDto){
+        Student student = studentMapper.convertToEntity(studentDto);
+        studentService.updateStudent(student);
+    }
+
+    @DeleteMapping("/deleteStudent")
+    @ResponseBody
+    public void deleteStudent(@RequestBody StudentDto studentDto){
+        Student student = studentMapper.convertToEntity(studentDto);
+        studentService.deleteStudent(student);
     }
 }
