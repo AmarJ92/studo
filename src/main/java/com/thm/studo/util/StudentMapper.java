@@ -3,6 +3,7 @@ package com.thm.studo.util;
 import com.thm.studo.student.Student;
 import com.thm.studo.student.StudentDto;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,4 +22,5 @@ public class StudentMapper {
     public StudentDto convertToDto(Student student){
         return modelMapper.map(student, StudentDto.class);
     }
+
 }

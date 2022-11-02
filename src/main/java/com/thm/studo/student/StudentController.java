@@ -3,6 +3,9 @@ package com.thm.studo.student;
 import com.thm.studo.util.StudentMapper;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("api/v1")
 public class StudentController {
@@ -15,11 +18,20 @@ public class StudentController {
         this.studentMapper = studentMapper;
     }
 
-    @GetMapping
-    public StudentDto getStudent(int studentId){
+    @GetMapping("/getStudent/{studentId}")
+    public StudentDto getStudent(@PathVariable int studentId){
         Student student = studentService.findStudentById(studentId);
-        StudentDto studentDto = studentMapper.convertToDto(student);
-        return studentDto;
+
+        return studentMapper.convertToDto(student);
+    }
+
+    @GetMapping("/getStudents")
+    public List<StudentDto> getAllStudents(){
+        List<Student> allStudents = studentService.getAllStudents();
+
+        return allStudents.stream()
+                .map(studentMapper::convertToDto)
+                .collect(Collectors.toList());
     }
 
     @PostMapping("/addStudents")
@@ -29,11 +41,11 @@ public class StudentController {
         studentService.createStudent(student);
     }
 
-    @PutMapping("/updateStudent")
+    @PutMapping("/updateStudent/{studentId}")
     @ResponseBody
-    public void updateStudent(@RequestBody StudentDto studentDto){
+    public void updateStudent(@PathVariable int studentId, @RequestBody StudentDto studentDto){
         Student student = studentMapper.convertToEntity(studentDto);
-        studentService.updateStudent(student);
+        studentService.updateStudent(studentId, student);
     }
 
     @DeleteMapping("/deleteStudent")

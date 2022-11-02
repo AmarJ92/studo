@@ -2,6 +2,7 @@ package com.thm.studo;
 
 import com.thm.studo.student.Student;
 import com.thm.studo.student.StudentRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,12 +16,7 @@ public class StudoApplication {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(StudentRepository studentRepository){
-        return args -> {
-            Student maria = new Student(
-                    "Maria", "Jones", 12345
-            );
-          studentRepository.save(maria);
-        };
+    public ModelMapper modelMapper(){
+        return new ModelMapper();
     }
 }
