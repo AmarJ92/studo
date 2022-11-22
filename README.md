@@ -12,7 +12,7 @@ delete students. It manages not only students but also courses, they are visitin
 * Spring Boot
 * Spring Data JPA
 * Maven
-* Java 17
+* Java 11
 * REST
 * H2-Database
 
@@ -20,5 +20,8 @@ delete students. It manages not only students but also courses, they are visitin
 * Spring Security
 * Docker
 * Cloud
+* Frontend (JS, HTML, CSS)
+* Using External APIs
+* Versioning
 
 

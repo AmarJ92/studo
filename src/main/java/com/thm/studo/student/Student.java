@@ -13,7 +13,7 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @Column(name = "STUDENT_ID")
     private int studentId;
     @Column(name = "SURNAME",
             nullable = false)
@@ -24,10 +24,4 @@ public class Student {
     @Column(name = "MATNUMBER",
             nullable = false)
     private int matNumber;
-
-    public Student(String surname, String lastname, int matNumber) {
-        this.surname = surname;
-        this.lastname = lastname;
-        this.matNumber = matNumber;
-    }
 }

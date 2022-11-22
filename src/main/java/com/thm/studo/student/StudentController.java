@@ -18,6 +18,13 @@ public class StudentController {
         this.studentMapper = studentMapper;
     }
 
+    @PostMapping("/addStudent")
+    @ResponseBody
+    public void createStudent(@RequestBody StudentDto studentDto){
+        Student student = studentMapper.convertToEntity(studentDto);
+        studentService.createStudent(student);
+    }
+
     @GetMapping("/getStudent/{studentId}")
     public StudentDto getStudent(@PathVariable int studentId){
         Student student = studentService.findStudentById(studentId);
@@ -32,13 +39,6 @@ public class StudentController {
         return allStudents.stream()
                 .map(studentMapper::convertToDto)
                 .collect(Collectors.toList());
-    }
-
-    @PostMapping("/addStudents")
-    @ResponseBody
-    public void createStudent(@RequestBody StudentDto studentDto){
-        Student student = studentMapper.convertToEntity(studentDto);
-        studentService.createStudent(student);
     }
 
     @PutMapping("/updateStudent/{studentId}")
