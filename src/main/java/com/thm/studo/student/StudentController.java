@@ -41,11 +41,11 @@ public class StudentController {
                 .collect(Collectors.toList());
     }
 
-    @PutMapping("/updateStudent/{studentId}")
+    @PutMapping("/updateStudent")
     @ResponseBody
-    public void updateStudent(@PathVariable int studentId, @RequestBody StudentDto studentDto){
-        Student student = studentMapper.convertToEntity(studentDto);
-        studentService.updateStudent(studentId, student);
+    public void updateStudent(@RequestBody StudentDto studentDto){
+        Student updatedStudent = studentMapper.convertToEntity(studentDto);
+        studentService.updateStudent(updatedStudent);
     }
 
     @DeleteMapping("/deleteStudent")

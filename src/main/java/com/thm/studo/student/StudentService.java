@@ -29,11 +29,10 @@ public class StudentService {
         studentRepository.save(student);
     }
 
-    public void updateStudent(int studentId, Student student) {
-        Optional<Student> studentOptional = studentRepository.findById(studentId);
-        studentOptional.orElseThrow(() -> new NoSuchStudentFoundException("No Student found with ID " + studentId));
-        student.setStudentId(studentId);
-        studentRepository.save(student);
+    public void updateStudent(Student updatedStudent) {
+        studentRepository.findById(updatedStudent.getStudentId())
+                .orElseThrow(() -> new NoSuchStudentFoundException("No Student found with ID " + updatedStudent.getStudentId()));
+        studentRepository.save(updatedStudent);
     }
 
     public void deleteStudent(Student student) {
