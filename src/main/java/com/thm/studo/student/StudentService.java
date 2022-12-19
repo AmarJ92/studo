@@ -4,7 +4,6 @@ import com.thm.studo.exception.NoSuchStudentFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -16,10 +15,8 @@ public class StudentService {
     }
 
     public Student findStudentById(int studentId){
-        studentRepository.findById(studentId)
+        return studentRepository.findById(studentId)
                 .orElseThrow(() -> new NoSuchStudentFoundException("No Student found with ID " + studentId));
-        Optional<Student> studentOptional = studentRepository.findById(studentId);
-        return studentOptional.get();
     }
 
     public List<Student> getAllStudents(){
@@ -36,9 +33,9 @@ public class StudentService {
         studentRepository.save(updatedStudent);
     }
 
-    public void deleteStudent(Student student) {
-        studentRepository.findById(student.getStudentId())
-                .orElseThrow(() -> new NoSuchStudentFoundException("No Student found with ID " + student.getStudentId()));
-        studentRepository.delete(student);
+    public void deleteStudent(int studentId) {
+        studentRepository.findById(studentId)
+                .orElseThrow(() -> new NoSuchStudentFoundException("No Student found with ID " + studentId));
+        studentRepository.deleteById(studentId);
     }
 }

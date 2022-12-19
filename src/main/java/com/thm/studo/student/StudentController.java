@@ -28,15 +28,12 @@ public class StudentController {
     @GetMapping("/getStudent/{studentId}")
     public StudentDto getStudent(@PathVariable int studentId){
         Student student = studentService.findStudentById(studentId);
-
         return studentMapper.convertToDto(student);
     }
 
     @GetMapping("/getStudents")
     public List<StudentDto> getAllStudents(){
-        List<Student> allStudents = studentService.getAllStudents();
-
-        return allStudents.stream()
+        return studentService.getAllStudents().stream()
                 .map(studentMapper::convertToDto)
                 .collect(Collectors.toList());
     }
@@ -48,10 +45,9 @@ public class StudentController {
         studentService.updateStudent(updatedStudent);
     }
 
-    @DeleteMapping("/deleteStudent")
+    @DeleteMapping("/deleteStudent/{studentId}")
     @ResponseBody
-    public void deleteStudent(@RequestBody StudentDto studentDto){
-        Student student = studentMapper.convertToEntity(studentDto);
-        studentService.deleteStudent(student);
+    public void deleteStudent(@PathVariable int studentId){
+        studentService.deleteStudent(studentId);
     }
 }
