@@ -16,8 +16,9 @@ public class StudentService {
     }
 
     public Student findStudentById(int studentId){
+        studentRepository.findById(studentId)
+                .orElseThrow(() -> new NoSuchStudentFoundException("No Student found with ID " + studentId));
         Optional<Student> studentOptional = studentRepository.findById(studentId);
-        studentOptional.orElseThrow(() -> new NoSuchStudentFoundException("No Student found with ID " + studentId));
         return studentOptional.get();
     }
 
@@ -36,6 +37,8 @@ public class StudentService {
     }
 
     public void deleteStudent(Student student) {
+        studentRepository.findById(student.getStudentId())
+                .orElseThrow(() -> new NoSuchStudentFoundException("No Student found with ID " + student.getStudentId()));
         studentRepository.delete(student);
     }
 }

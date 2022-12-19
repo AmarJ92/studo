@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity(name = "Student")
@@ -15,13 +16,16 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "STUDENT_ID")
     private int studentId;
-    @Column(name = "SURNAME",
-            nullable = false)
+
+    @NotNull
+    @Column(name = "SURNAME")
     private String surname;
-    @Column(name = "LASTNAME",
-            nullable = false)
+
+    @NotNull
+    @Column(name = "LASTNAME")
     private String lastname;
-    @Column(name = "MATNUMBER",
-            nullable = false)
+
+    @NotNull
+    @Column(name = "MATNUMBER")
     private int matNumber;
 }
