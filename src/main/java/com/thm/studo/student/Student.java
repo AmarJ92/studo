@@ -1,5 +1,6 @@
 package com.thm.studo.student;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,14 @@ import javax.validation.constraints.NotNull;
 @Entity(name = "Student")
 @Table(name = "STUDENT")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Student {
+
+    public Student(String surname, String lastname, int matNumber) {
+        this.surname = surname;
+        this.lastname = lastname;
+        this.matNumber = matNumber;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

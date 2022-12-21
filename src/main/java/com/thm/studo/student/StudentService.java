@@ -8,6 +8,7 @@ import java.util.List;
 @Service
 public class StudentService {
 
+    private static final String NO_STUDENT_FOUND_WITH_ID = "No Student found with ID ";
     StudentRepository studentRepository;
 
     public StudentService(StudentRepository studentRepository) {
@@ -16,7 +17,7 @@ public class StudentService {
 
     public Student findStudentById(int studentId){
         return studentRepository.findById(studentId)
-                .orElseThrow(() -> new NoSuchStudentFoundException("No Student found with ID " + studentId));
+                .orElseThrow(() -> new NoSuchStudentFoundException(NO_STUDENT_FOUND_WITH_ID + studentId));
     }
 
     public List<Student> getAllStudents(){
@@ -29,13 +30,13 @@ public class StudentService {
 
     public void updateStudent(Student updatedStudent) {
         studentRepository.findById(updatedStudent.getStudentId())
-                .orElseThrow(() -> new NoSuchStudentFoundException("No Student found with ID " + updatedStudent.getStudentId()));
+                .orElseThrow(() -> new NoSuchStudentFoundException(NO_STUDENT_FOUND_WITH_ID + updatedStudent.getStudentId()));
         studentRepository.save(updatedStudent);
     }
 
     public void deleteStudent(int studentId) {
         studentRepository.findById(studentId)
-                .orElseThrow(() -> new NoSuchStudentFoundException("No Student found with ID " + studentId));
+                .orElseThrow(() -> new NoSuchStudentFoundException(NO_STUDENT_FOUND_WITH_ID + studentId));
         studentRepository.deleteById(studentId);
     }
 }
