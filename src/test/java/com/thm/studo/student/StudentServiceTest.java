@@ -14,8 +14,7 @@ import java.util.stream.Stream;
 import static java.util.Optional.of;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class StudentServiceTest {
@@ -42,13 +41,12 @@ class StudentServiceTest {
         Student student3 = new Student("Joana", "Cate", 87654);
         List<Student> studentList = Stream.of(student1, student2, student3).collect(Collectors.toList());
 
-        when(studentRepository.findAll()).thenReturn(studentList);
-
         // when
+        when(studentRepository.findAll()).thenReturn(studentList);
         List<Student> allPersistedStudents = underTest.getAllStudents();
 
         // then
-        verify(studentRepository).findAll();
+        verify(studentRepository, times(1)).findAll();
         assertEquals(allPersistedStudents, studentList);
     }
 
@@ -62,25 +60,25 @@ class StudentServiceTest {
 
         // then
         ArgumentCaptor<Student> studentArgumentCaptor = ArgumentCaptor.forClass(Student.class);
-        verify(studentRepository).save(studentArgumentCaptor.capture()); // capture the student values
+        verify(studentRepository, times(1)).save(studentArgumentCaptor.capture()); // capture the student values
         Student capturedStudent = studentArgumentCaptor.getValue();
 
         assertThat(capturedStudent).isEqualTo(student);
     }
 
     @Test
-    void updateStudent() {
+    void canUpdateStudent() {
         // given
-        Student student = new Student("Amar", "Javid", 12345);
+        Student student = new Student(1,"Amar", "Javid", 12345);
 
-        when(studentRepository.findById(0)).thenReturn(of(student));
+        when(studentRepository.findById(student.getStudentId())).thenReturn(of(student));
 
         // when
-        Student studentToBeUpdated = underTest.findStudentById(0);
+        Student studentToBeUpdated = underTest.findStudentById(student.getStudentId());
         studentToBeUpdated.setSurname("Anton");
         underTest.updateStudent(studentToBeUpdated);
         ArgumentCaptor<Student> studentArgumentCaptor = ArgumentCaptor.forClass(Student.class);
-        verify(studentRepository).save(studentArgumentCaptor.capture());
+        verify(studentRepository, times(1)).save(studentArgumentCaptor.capture());
         Student capturedStudent = studentArgumentCaptor.getValue();
 
         // then
@@ -91,12 +89,12 @@ class StudentServiceTest {
     void canDeleteStudent() {
         // given
         Student student = new Student(1,"Amar", "Javid", 12345);
-        when(studentRepository.findById(1)).thenReturn(of(student));
+        when(studentRepository.findById(student.getStudentId())).thenReturn(of(student));
 
         // when
         underTest.deleteStudent(student.getStudentId());
 
         // then
-        verify(studentRepository).deleteById(student.getStudentId());
+        verify(studentRepository, times(1)).deleteById(student.getStudentId());
     }
 }
