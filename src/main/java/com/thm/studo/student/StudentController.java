@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/students")
 public class StudentController {
 
     private final StudentService studentService;
@@ -18,34 +18,34 @@ public class StudentController {
         this.studentMapper = studentMapper;
     }
 
-    @PostMapping("/addStudent")
+    @PostMapping
     @ResponseBody
     public void createStudent(@RequestBody StudentDto studentDto){
         Student student = studentMapper.convertToEntity(studentDto);
         studentService.createStudent(student);
     }
 
-    @GetMapping("/getStudent/{studentId}")
+    @GetMapping("{studentId}")
     public StudentDto getStudent(@PathVariable int studentId){
         Student student = studentService.findStudentById(studentId);
         return studentMapper.convertToDto(student);
     }
 
-    @GetMapping("/getStudents")
+    @GetMapping
     public List<StudentDto> getAllStudents(){
         return studentService.getAllStudents().stream()
                 .map(studentMapper::convertToDto)
                 .collect(Collectors.toList());
     }
 
-    @PutMapping("/updateStudent")
+    @PutMapping
     @ResponseBody
     public void updateStudent(@RequestBody StudentDto studentDto){
         Student updatedStudent = studentMapper.convertToEntity(studentDto);
         studentService.updateStudent(updatedStudent);
     }
 
-    @DeleteMapping("/deleteStudent/{studentId}")
+    @DeleteMapping("{studentId}")
     @ResponseBody
     public void deleteStudent(@PathVariable int studentId){
         studentService.deleteStudent(studentId);
