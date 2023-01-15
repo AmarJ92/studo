@@ -21,7 +21,7 @@ public class Student {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @Column(name = "STUDENT_ID")
     private int studentId;
 
