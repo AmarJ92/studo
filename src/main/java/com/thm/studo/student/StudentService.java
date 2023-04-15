@@ -1,19 +1,17 @@
 package com.thm.studo.student;
 
 import com.thm.studo.exception.NoSuchStudentFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class StudentService {
 
     private static final String NO_STUDENT_FOUND_WITH_ID = "No Student found with ID ";
-    StudentRepository studentRepository;
-
-    public StudentService(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
+    private final StudentRepository studentRepository;
 
     public Student findStudentById(int studentId){
         return studentRepository.findById(studentId)

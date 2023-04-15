@@ -1,6 +1,7 @@
 package com.thm.studo.student;
 
 import com.thm.studo.util.StudentMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -8,15 +9,11 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v1/students")
+@RequiredArgsConstructor
 public class StudentController {
 
     private final StudentService studentService;
     private final StudentMapper studentMapper;
-
-    public StudentController(StudentService studentService, StudentMapper studentMapper) {
-        this.studentService = studentService;
-        this.studentMapper = studentMapper;
-    }
 
     @PostMapping
     @ResponseBody
